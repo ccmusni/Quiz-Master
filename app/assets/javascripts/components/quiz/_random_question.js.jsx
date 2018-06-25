@@ -26,7 +26,7 @@ class RandomQuestion extends React.Component{
     fetch('/api/v1/quizes.json')
       .then((response) => {return response.json()})
       .then((data) => {this.setState( {question: data} )})
-      
+
       this.setState({
         question: [],
         isAnswerCorrect: false,
@@ -44,7 +44,7 @@ class RandomQuestion extends React.Component{
       <div>
         <h1>Question</h1>
         <i>{(this.answer == undefined || this.answer.value == '') ? '' : message}</i>
-        <h4>{this.state.question.content}</h4>
+        <h4 dangerouslySetInnerHTML={{__html: this.state.question.content}}></h4>
         <form>
           <div className="form-group">
             <input type="text" className="form-control" placeholder="Type your answer.." ref={input => this.answer = input} />
