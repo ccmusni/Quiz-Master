@@ -1,8 +1,8 @@
 class Api::V1::QuizesController < Api::V1::BaseController
   def index
     offset = rand(Question.count)
-    randon_question = Question.offset(offset).first
-    respond_with randon_question.blank? ? [] : randon_question
+    random_question = Question.offset(offset).first
+    respond_with random_question.blank? ? [] : random_question
   end
 
   def create

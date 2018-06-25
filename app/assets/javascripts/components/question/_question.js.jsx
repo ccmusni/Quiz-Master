@@ -34,7 +34,6 @@ class Question extends React.Component{
   }
 
   componentDidMount() {
-    console.log('mounted')
       $("div#edit-content-editor" + this.props.question.id).froalaEditor({
         toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'inlineStyle', 'paragraphFormat', 'align', 'undo', 'redo', 'html'],
         placeholderText: 'Enter a new question',
@@ -62,7 +61,6 @@ class Question extends React.Component{
     let deleteButton = !this.state.editable ? <button type="button" className="btn btn-danger" onClick={() => {if(confirm('Are you sure you want to delete this?')) {this.props.handleDelete(this.props.question.id)}}}>Delete</button> : ''
     let cancelButton = this.state.editable ? <button type="button" className="btn btn-default" onClick={() => this.handleCancel()}>Cancel</button> : ''
 
-console.log($("show-content" + this.props.question.id));
     return(
       <tr>
         <td><div id={"edit-content-editor" + this.props.question.id}></div>{content}</td>

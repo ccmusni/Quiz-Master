@@ -3,7 +3,7 @@ class RandomQuestion extends React.Component{
     super(props);
     this.state = {
       question: [],
-      isAnswered: false,
+      hasAnswer: false,
       isAnswerCorrect: false
     }
     this.checkAnswer = this.checkAnswer.bind(this)
@@ -17,8 +17,8 @@ class RandomQuestion extends React.Component{
 
   checkAnswer() {
     this.setState({
-      isAnswerCorrect: (this.state.question.answer == this.answer.value),
-      isAnswered: !!this.answer.value
+      isAnswerCorrect: (convertNumbersInStringToWords(this.state.question.answer).replace(/-/g, " ") == convertNumbersInStringToWords(this.answer.value).replace(/-/g, " ")),
+      hasAnswer: !!this.answer.value
     })
   }
 
@@ -30,15 +30,19 @@ class RandomQuestion extends React.Component{
       this.setState({
         question: [],
         isAnswerCorrect: false,
-        isAnswered: false
-      })
+        hasAnswer: false
+      });
+      this.answer.value = '';
   }
 
   render() {
     let message = this.state.isAnswerCorrect ? <div className="alert alert-success" role="alert">CORRECT</div> : <div className="alert alert-danger" role="alert">INCORRECT</div>
-    let button = this.state.isAnswered ?
+    let button = this.state.hasAnswer ?
       <button type="button" className="btn btn-success" onClick={() => this.rollQuestion()}>Try New</button> :
-      <button type="button" className="btn btn-primary" onClick={() => this.checkAnswer()}>Check</button>
+      <div className="btn-group" role="group">
+        <button type="button" className="btn btn-primary" onClick={() => this.checkAnswer()}>Check</button>
+        <button type="button" className="btn btn-success" onClick={() => this.rollQuestion()}>Try Another</button>
+      </div>
 
     return(
       <div>
