@@ -1,6 +1,6 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
   def index
-    respond_with Question.all
+    respond_with Question.all.order(updated_at: :desc)
   end
 
   def create

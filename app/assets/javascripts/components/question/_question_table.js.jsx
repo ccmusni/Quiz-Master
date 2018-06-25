@@ -4,7 +4,7 @@ class QuestionTable extends React.Component {
     this.state = {
       questions: [],
       question: [],
-      isEdit: false,
+      editing: false,
       newAdded: false
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -19,18 +19,17 @@ class QuestionTable extends React.Component {
 
   handleEdit(question) {
     this.setState({
-      isEdit: false,
+      editing: true,
       question: question
     })
   }
 
   handleFormSubmit(content, answer, alert){
-    froalaDiv = "div#" + content.id;
-    content = $(froalaDiv).froalaEditor('html.get');
-    alertDiv = $("div#" + alert.id);
-    alertDiv.show();
-    alertDiv.fadeTo(3000, 0, '', function(){ $(this).remove(); });
-    let body = JSON.stringify({question: {content: content, answer: answer} })
+    contentContainer = $("div#" + content.id);
+    content = contentContainer.froalaEditor('html.get');
+    $("div#" + alert.id).show(0).delay(2000).fadeOut(1000);
+
+    let body = JSON.stringify({question: {content: content, answer: answer.value} })
     fetch('/api/v1/questions', {
         method: 'POST',
         headers: {
@@ -39,8 +38,11 @@ class QuestionTable extends React.Component {
         body: body,
       }).then((response) => {return response.json()})
       .then((question)=>{
-        this.addNewQuestion(question)
+        this.addNewQuestion(question);
       })
+
+    contentContainer.froalaEditor('html.set', '');
+    answer.value = '';
   }
 
   addNewQuestion(question){
@@ -110,7 +112,7 @@ class QuestionTable extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-12">
-            <NewQuestion handleFormSubmit={this.handleFormSubmit} newAdded={this.state.newAdded} isEdit={this.state.question} question={this.state.question}/>
+            <NewQuestion handleFormSubmit={this.handleFormSubmit} newAdded={this.state.newAdded} editing={true} question={'this.state.question'}/>
           </div>
         </div>
         <div className="row">
