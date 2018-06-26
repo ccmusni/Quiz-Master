@@ -26,7 +26,7 @@ questiion_list = [
    {content: "How many American cents make up a dime?", answer: "Ten"},
    {content: "Name the Chinese game played with small tiles.", answer: "Mah-jong"},
    {content: "What do you call the smell which wine gives off?", answer: "Bouquet"},
-   {content: "What are espadrilles?.", answer: "Sandals"}
+   {content: "What are espadrilles?", answer: "Sandals"}
 ]
 
 questiion_list.each do |question|
