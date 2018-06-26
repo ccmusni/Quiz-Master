@@ -27,7 +27,7 @@ const NewQuestion = (props) => {
           <div className="input-group" style={{width: '100%'}}>
             <input id="answer-editor" className="form-control" ref={input => formFields.answer = input} placeholder='Enter the answer' />
             <span className="input-group-btn">
-              <button className="btn btn-success" onClick={ () => {if(confirm('Are you sure you want to add this?')) {props.handleFormSubmit(formFields.content, formFields.answer, formFields.alert )}}} >Add</button>
+              <button className="btn btn-success" onClick={ () => {if (formFields.answer.value) {if(confirm('Are you sure you want to add this?')) {props.handleFormSubmit(formFields.content, formFields.answer, formFields.alert )} }}} >Add</button>
             </span>
           </div>
         </div>
